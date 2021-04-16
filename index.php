@@ -1,64 +1,4 @@
-<?php 
 
-    // function convertImageToWebP($source, $destination, $quality=80) {
-    function convertImageToWebP($source, $destination) {
-        $extension = pathinfo($source, PATHINFO_EXTENSION);
-
-        if ($extension == 'jpeg' || $extension == 'jpg')
-            $image = imagecreatefromjpeg($destination . $source);
-        elseif ($extension == 'gif')
-            $image = imagecreatefromgif($destination . $source);
-        elseif ($extension == 'png')
-            $image = imagecreatefrompng($destination . $source);
-
-        // return imagewebp($image, $destination, $quality);
-        return $image;
-    }
-    
-
-    // Check if image file is a actual image or fake image
-if(isset($_POST["submit"])) {
-
-    #SUBIR Y GUARDAR ARCHIVO
-    $dir_subida = 'm/';
-    $fichero_subido = $dir_subida . basename($_FILES['formFile']['name']);
-    $fileName = basename($_FILES['formFile']['tmp_name']);
-    move_uploaded_file($_FILES['formFile']['tmp_name'], $fichero_subido);
-    
-    
-    
-
-    #CONVERTIR ARCHIVO WEBP
-    $name = basename($_FILES['formFile']['name']);
-    $porciones = explode(".", $name);
-    $newName = $porciones[0].'.webp';
-
-    //$img = imagecreatefromjpeg($dir_subida . $name);
-    $img = convertImageToWebP($name, $dir_subida);
-
-    imagepalettetotruecolor($img);
-    imagealphablending($img, true);
-    imagesavealpha($img, true);
-    imagewebp($img, $dir_subida . $newName, 80);
-    imagedestroy($img);
-    
-    unlink($fichero_subido);
-
-    
-
-    /*
-    echo '<pre>';
-    print_r($_FILES);
-    echo '</pre>';
-    */
-
-
-
-}
-
-
-
-?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -75,16 +15,12 @@ if(isset($_POST["submit"])) {
     </head>
     <body>
 
-        <section class="container">
+        <section class="container mt-5">
             <div class="row">
                 <div class="col">
-                    <form action="index.php" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">Selecciona la imagen</label>
-                            <input class="form-control" type="file" id="formFile" name="formFile">
-                        </div>
-                        <button type="submit" name="submit" class="btn btn-primary">Enviar</button>
-                    </form>
+                    <h1>Subir archivos</h1>
+                    <a class="btn btn-info" href="uno.php">Solo uno</a>
+                    <a class="btn btn-info" href="varios.php">Varios archivos</a>
                 </div>
             </div>
         </section>
