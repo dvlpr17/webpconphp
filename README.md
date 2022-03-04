@@ -1,2 +1,2 @@
 # Convertir jpg, png, gif a webp con php
-Este ejemplo cuenta con una sección para convertir multiples archivos a webp
+Este proyecto fue creado con la intencion de convertir imagenes al formato webp y agilizar la conversión
